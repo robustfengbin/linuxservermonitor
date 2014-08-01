@@ -15,6 +15,10 @@ module.exports = function (app) {
         res.render('plot', { title: 'user' });
     });
 
+    app.get('/chart', function(req, res){
+        res.render('chart', { title: 'chart' });
+    });
+
 
 
     app.get('/qcap', function(req, res){
