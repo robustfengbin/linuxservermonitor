@@ -9,13 +9,13 @@ mongoose.connect(config.mongodb.db, function (err) {
 
 // models
 require('./cpu');
-//require('./loadaverage')
-//require('./mem')
+require('./loadavg')
+require('./mem')
 
 
 exports.Cpu = mongoose.model('Cpu');
-//exports.Loadaverage = mongoose.model('Loadaverage');
-//exports.Mem = mongoose.model('Mem');
+exports.Loadavg = mongoose.model('Loadavg');
+exports.Mem = mongoose.model('Mem');
 
 
 

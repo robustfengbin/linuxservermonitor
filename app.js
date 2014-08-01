@@ -8,6 +8,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var linux = require('./service/linux')
+var os = require('os')
 
 
 var app = express();
@@ -35,3 +37,15 @@ routes(app);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+if(os.platform=="linux"){
+    setInterval(function(){
+        console.info("linux monitor cpu_info_save:")
+        linux.cpu_info_save()
+        console.info("linux monitor mem_info_save:")
+        linux.mem_info_save()
+        console.info("linux monitor loadavg_info_save:")
+        linux.loadavg_info_save()
+    },3*60*1000)
+}
+

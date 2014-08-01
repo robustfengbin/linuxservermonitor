@@ -1,6 +1,6 @@
 var exec = require('child_process').exec
 
-var dao_cpu = require('../dao').Cpu
+var dao = require('../dao')
 
 module.exports = function (app) {
     app.get('/', function(req, res){
@@ -13,9 +13,16 @@ module.exports = function (app) {
 
 
     app.get('/qcap', function(req, res){
-         dao_cpu.findAll(function(error,cpus){
+        dao.Cpu.findAll(function(error,cpus){
              console.info("cpus info:",cpus)
          })
+        dao.Mem.findAll(function(error,mems){
+            console.info("cpus info:",mems)
+        })
+        dao.Loadavg.findAll(function(error,loadavgs){
+            console.info("cpus info:",loadavgs)
+        })
+
 
         res.render('qcap', { title: 'qcap' });
     }) ;
@@ -41,7 +48,8 @@ function exe_q_performance(){
             var sys =  array[1]
             var idle = array[2]
             console.log('us: ' + us," sys:"+sys," idle:"+idle);
-            dao_cpu.newAndSave(us,sys,idle)
+            dao.Cpu.newAndSave(us,sys,idle)
+
 
         });
 }
