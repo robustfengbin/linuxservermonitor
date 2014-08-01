@@ -17,10 +17,10 @@ module.exports = function (app) {
              console.info("cpus info:",cpus)
          })
         dao.Mem.findAll(function(error,mems){
-            console.info("cpus info:",mems)
+            console.info("mems info:",mems)
         })
         dao.Loadavg.findAll(function(error,loadavgs){
-            console.info("cpus info:",loadavgs)
+            console.info("loadavgs info:",loadavgs)
         })
 
 
