@@ -13,7 +13,7 @@ module.exports = function (app) {
 
 
     app.get('/qcap', function(req, res){
-         dao_cpu.findAll(function(cpus){
+         dao_cpu.findAll(function(error,cpus){
              console.info("cpus info:",cpus)
          })
 
