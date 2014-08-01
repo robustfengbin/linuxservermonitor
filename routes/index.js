@@ -22,7 +22,7 @@ module.exports = function (app) {
 
     app.post('/qcap', function(req, res){
 
-
+        exe_q_performance()
         res.render('qcap', { title: 'qcap' });
     }) ;
 
