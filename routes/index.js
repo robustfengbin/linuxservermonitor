@@ -7,9 +7,14 @@ module.exports = function (app) {
         res.render('index', { title: 'index' });
     });
 
-    app.get('users', function(req, res){
+    app.get('/users', function(req, res){
         res.render('user', { title: 'user' });
     });
+
+    app.get('/plot', function(req, res){
+        res.render('plot', { title: 'user' });
+    });
+
 
 
     app.get('/qcap', function(req, res){
