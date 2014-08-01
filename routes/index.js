@@ -41,6 +41,7 @@ function exe_q_performance(){
             var sys =  array[1]
             var idle = array[2]
             console.log('us: ' + us," sys:"+sys," idle:"+idle);
+            dao_cpu.newAndSave(us,sys,idle)
 
         });
 }
