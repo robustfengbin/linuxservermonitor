@@ -19,6 +19,11 @@ module.exports = function (app) {
         res.render('chart', { title: 'chart' });
     });
 
+    app.get('/line', function(req, res){
+        res.render('line', { title: 'line' });
+    });
+
+
 
 
     app.get('/qcap', function(req, res){
