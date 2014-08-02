@@ -14,7 +14,9 @@ exports.newAndSave = function (one, five,ten,  callback) {
     loadavg.one = one;
     loadavg.five = five;
     loadavg.ten = ten;
-    loadavg.save(callback);
+    loadavg.save(function(error,data){
+        callback(null,data)
+    });
 };
 exports.findAll = function(callback){
     Loadavg.find({}, function (err, loadavgs) {
@@ -26,5 +28,11 @@ exports.find_by_date = function(gte,lt,callback){
     Loadavg.find({'create_at':{'$gte':new Date(gte),'$lt':new Date(lt)}}, function (err, loadavgs) {
         callback(null,loadavgs)
     }).sort({ time : -1 });
+}
+
+exports.del_all = function(gte,lt,callback){
+    Loadavg.remove({'create_at':{'$gte':new Date(gte),'$lt':new Date(lt)}}, function (err, loadavgs) {
+        callback(null,loadavgs)
+    });
 }
 

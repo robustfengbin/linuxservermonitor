@@ -21,12 +21,16 @@ exports.cpu_info_save = function(){
         });
 };
 
-exports.loadavg_info_save = function(){
+exports.loadavg_info_save = function(callback){
     var loadavg = os.loadavg()
     var one = loadavg[0]
     var five = loadavg[1]
     var ten = loadavg[2]
-    dao_loadavg.newAndSave(one,five,ten)
+    dao_loadavg.newAndSave(one,five,ten,function(error,result){
+    //    console.info("dao_loadavg save,result",result)
+        callback(result)
+    })
+
 };
 
 exports.mem_info_save = function(){

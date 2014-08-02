@@ -2,6 +2,7 @@ var exec = require('child_process').exec
 
 var dao = require('../dao')
 var buildline = require('../service/buildline')
+var moment = require('moment')
 
 module.exports = function (app) {
     app.get('/', function(req, res){
@@ -31,6 +32,23 @@ module.exports = function (app) {
         })
 
     });
+    app.get('/q_load', function(req, res){
+        buildline.build_load_line(function(result){
+        console.info("result:",result)
+            res.render('q_load', { result: JSON.stringify(result)});
+        })
+
+
+
+    });
+
+    app.get('/callback', function(req, res){
+
+
+            res.render('callback');
+
+
+    });
 
 
 
@@ -46,7 +64,9 @@ module.exports = function (app) {
 //        })
 
         dao.Loadavg.find_by_date('2014-8-2','2014-8-3',function(error,loadavgs){
-            console.info("loadavgs date info:",loadavgs)
+          //  console.info("loadavgs date info:",loadavgs)
+
+
         })
 
 

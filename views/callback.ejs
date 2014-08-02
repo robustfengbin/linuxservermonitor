@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+        <script>
+            function a(t,callback)
+            {
+                console.info("我是parent函数a！");
+                console.info("调用回调函数");
+                callback(t);
+            }
+            function b(bb){
+                console.info("我是回调函数b",bb);
+
+            }
+            function c(c){
+                console.info("我是回调函数c:",c);
+
+            }
+
+            function test()
+            {
+                a(4,b);
+                a(8,c);
+            }
+            test()
+        </script>
