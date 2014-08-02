@@ -12,7 +12,7 @@ exports.socket={
 
 //redis
 exports.redis={
-	host:'192.168.1.95',
+	host:'127.0.0.1',
 	port:6379,
 	socketDB:9,
 	debug_mode:false
@@ -23,7 +23,7 @@ exports.mongodb={
     port:27017,
     db_name: 'capmonitor',
     session_secret: 'node_capmonitor',
-    db: 'mongodb://192.168.1.95/capmonitor'
+    db: 'mongodb://112.124.61.22/capmonitor'
 };
 //socket.ioconf
 exports.socketinfo={

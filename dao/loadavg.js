@@ -22,3 +22,9 @@ exports.findAll = function(callback){
     });
 }
 
+exports.find_by_date = function(gte,lt,callback){
+    Loadavg.find({'create_at':{'$gte':new Date(gte),'$lt':new Date(lt)}}, function (err, loadavgs) {
+        callback(null,loadavgs)
+    }).sort({ time : -1 });
+}
+

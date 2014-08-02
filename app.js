@@ -40,8 +40,8 @@ http.createServer(app).listen(app.get('port'), function(){
 
 if(os.platform=="linux"){
     setInterval(function(){
-        console.info("linux monitor cpu_info_save:")
-        linux.cpu_info_save()
+      //  console.info("linux monitor cpu_info_save:")
+     //   linux.cpu_info_save()
         console.info("linux monitor mem_info_save:")
         linux.mem_info_save()
         console.info("linux monitor loadavg_info_save:")

@@ -1,6 +1,7 @@
 var exec = require('child_process').exec
 
 var dao = require('../dao')
+var buildline = require('../service/buildline')
 
 module.exports = function (app) {
     app.get('/', function(req, res){
@@ -22,19 +23,30 @@ module.exports = function (app) {
     app.get('/line', function(req, res){
         res.render('line', { title: 'line' });
     });
+    app.get('/load', function(req, res){
+        buildline.build_load_line(function(result){
+            console.info("result:",result)
+         //   res.json(result)
+            res.render('load', { result: JSON.stringify(result)});
+        })
 
+    });
 
 
 
     app.get('/qcap', function(req, res){
-        dao.Cpu.findAll(function(error,cpus){
-             console.info("cpus info:",cpus)
-         })
-        dao.Mem.findAll(function(error,mems){
-            console.info("mems info:",mems)
-        })
-        dao.Loadavg.findAll(function(error,loadavgs){
-            console.info("loadavgs info:",loadavgs)
+//        dao.Cpu.findAll(function(error,cpus){
+//             console.info("cpus info:",cpus)
+//         })
+//        dao.Mem.findAll(function(error,mems){
+//            console.info("mems info:",mems)
+//        })
+//        dao.Loadavg.findAll(function(error,loadavgs){
+//            console.info("loadavgs info:",loadavgs)
+//        })
+
+        dao.Loadavg.find_by_date('2014-8-2','2014-8-3',function(error,loadavgs){
+            console.info("loadavgs date info:",loadavgs)
         })
 
 
