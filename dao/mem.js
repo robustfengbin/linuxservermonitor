@@ -17,8 +17,18 @@ exports.newAndSave = function (total, free,used,swapused,buffers,cached, callbac
     mem.swapused = swapused;
     mem.buffers = buffers;
     mem.cached = cached;
-    mem.save(callback);
+    mem.save(function(error,data){
+        callback(null,data)
+    });
+
 };
+
+exports.find_by_date = function(gte,lt,callback){
+    Mem.find({'create_at':{'$gte':new Date(gte),'$lt':new Date(lt)}}, function (err, objs) {
+        callback(null,objs)
+    }).sort({ time : -1 });
+}
+
 exports.findAll = function(callback){
     Mem.find({}, function (err, mems) {
         callback(null,mems)

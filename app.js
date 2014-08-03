@@ -52,35 +52,40 @@ io.sockets.on('connection', function (socket) {
 
     monitorEvent.on('notify_per_load',function(data){
         console.info("have notify_per_load",data)
-      //  var result = JSON.stringify(data)
+       //广播loadavg信息已更新
         socket.broadcast.emit('load_info', data)
 
     })
 
-    socket.on('emit_draw_obj', function (data) {
-        if (socket.room) {
-            socket.broadcast.to(socket.room).emit('receiver_draw_object', data)
-        }
-    });
+    monitorEvent.on('notify_per_mem',function(data){
+        console.info("have notify_per_mem",data)
+        //广播mem信息已更新
+        socket.broadcast.emit('mem_info', data)
 
+    })
 })
 
 //if(os.platform=="linux"){
     setInterval(function(){
-      //  console.info("linux monitor cpu_info_save:")
-     //   linux.cpu_info_save()
+        console.info("linux monitor cpu_info_save:")
+        linux.cpu_info_save(function(data){
+
+        })
         console.info("linux monitor mem_info_save:")
-        linux.mem_info_save()
+        linux.mem_info_save(function(data){
+            var ca = data.create_at
+            var labeltext = moment(ca).format("HH:mm")
+            var json = {array:[data.total,data.total-data.free],label:labeltext}
+            monitorEvent.persistent_mem("persistent_mem",json)
+            })
         console.info("linux monitor loadavg_info_save:")
         linux.loadavg_info_save(function(data){
             var ca = data.create_at
             var labeltext = moment(ca).format("HH:mm")
-
             var json = {array:[data.one,data.five,data.ten],label:labeltext}
-            console.info("json:",json)
             monitorEvent.persistent_load("persistent_load",json)
         })
 
-    },0.5*60*1000)
+    },1*60*1000)
 //}
 

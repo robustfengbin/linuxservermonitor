@@ -14,6 +14,8 @@ require('./mem')
 
 
 exports.Cpu = mongoose.model('Cpu');
+exports.CpuDetail = mongoose.model('CpuDetail');
+
 exports.Loadavg = mongoose.model('Loadavg');
 exports.Mem = mongoose.model('Mem');
 

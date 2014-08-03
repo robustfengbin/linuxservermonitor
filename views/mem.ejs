@@ -3,8 +3,6 @@
 <head>
     <title></title>
     <script src="javascripts/Chart.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-
 
 
 </head>
@@ -27,21 +25,6 @@
                     responsive: true
                 });
             }
-
-    var socket = io.connect('http://localhost:3000');
-    socket.on('connect', function(){
-
-        console.info("i connection")
-        socket.on('load_info', function(data){
-            console.info("data:",data)
-            myLine.addData(data.array, data.label);
-
-
-        });
-
-
-
-    });
 
 
 

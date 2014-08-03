@@ -1,4 +1,5 @@
 var exec = require('child_process').exec
+var os = require('os')
 
 var dao = require('../dao')
 var buildline = require('../service/buildline')
@@ -24,32 +25,70 @@ module.exports = function (app) {
     app.get('/line', function(req, res){
         res.render('line', { title: 'line' });
     });
-    app.get('/load', function(req, res){
-        buildline.build_load_line(function(result){
-            console.info("result:",result)
-         //   res.json(result)
-            res.render('load', { result: JSON.stringify(result)});
+
+    app.get('/cpu', function(req, res){
+        var dse = date_start_date_end()
+
+        var cpus = os.cpus()
+
+        for(var i=0;i<cpus.length;i++){
+            console.info("cpu["+i+"]---------")
+            var c = cpus[i]
+            var name = c.model
+            console.info("cpu name:",name)
+            var speed = c.speed
+            console.info("cpu speed:",speed)
+            var times = c.times
+            var user = times.user
+            var sys = times.sys
+            var idle = times.idle
+
+            console.info("cpu usage user:",user,"sys:",sys,"idle:",idle)
+        }
+
+        console.info("cpus:",cpus)
+
+
+             res.render('cpu', { result: JSON.stringify(result)});
+
+
+    });
+
+    app.get('/mem', function(req, res){
+        var dse = date_start_date_end()
+        buildline.build_mem_line(dse[0],dse[1],function(result){
+            res.render('mem', { result: JSON.stringify(result)});
         })
 
     });
-    app.get('/q_load', function(req, res){
-        buildline.build_load_line(function(result){
-        console.info("result:",result)
-            res.render('q_load', { result: JSON.stringify(result)});
+    app.get('/q_mem', function(req, res){
+        var dse = date_start_date_end()
+        buildline.build_mem_line(dse[0],dse[1],function(result){
+            res.render('q_mem', { result: JSON.stringify(result)});
         })
 
+    });
 
+    app.get('/load', function(req, res){
+        var dse = date_start_date_end()
+        buildline.build_load_line(dse[0],dse[1],function(result){
+           res.render('load', { result: JSON.stringify(result)});
+        })
+
+    });
+    //动态显示系统loadavg
+    app.get('/q_load', function(req, res){
+        var dse = date_start_date_end()
+        buildline.build_load_line(dse[0],dse[1],function(result){
+            res.render('q_load', { result: JSON.stringify(result)});
+        })
 
     });
 
     app.get('/callback', function(req, res){
 
-
-            res.render('callback');
-
-
+           res.render('callback');
     });
-
 
 
     app.get('/qcap', function(req, res){
@@ -98,6 +137,14 @@ function exe_q_performance(){
 
 
         });
+}
+
+function date_start_date_end(){
+    var now = moment()
+    var date_start = now.format('YYYY-MM-DD')
+    var next_day = moment().add(1, 'day');
+    var date_end = next_day.format('YYYY-MM-DD')
+    return [date_start,date_end]
 }
 
 
