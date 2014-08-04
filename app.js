@@ -15,6 +15,9 @@ var socket_io = require('socket.io')
 var buildline = require('./service/buildline')
 var moment = require('moment')
 var socketio_client = require('socket.io-client')
+var config = require('config')
+
+
 
 
 
@@ -81,7 +84,7 @@ io.sockets.on('connection', function (socket) {
             var ca = data.create_at
             var labeltext = moment(ca).format("HH:mm")
             var json = {array:[data.us,data.sys,data.idle],label:labeltext}
-            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            var c_socket = socketio_client.connect(config.socketinfo.hostport);
             c_socket.on('connect', function () {
                 c_socket.emit('persistent_cpu', json);
             });
@@ -94,7 +97,7 @@ io.sockets.on('connection', function (socket) {
        //     monitorEvent.persistent_mem("persistent_mem",json)
 
 
-            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            var c_socket = socketio_client.connect(config.socketinfo.hostport);
             c_socket.on('connect', function () {
                 c_socket.emit('persistent_mem', json);
             });
@@ -107,7 +110,7 @@ io.sockets.on('connection', function (socket) {
             var labeltext = moment(ca).format("HH:mm")
             var json = {array:[data.one,data.five,data.ten],label:labeltext}
         //    monitorEvent.persistent_load("persistent_load",json)
-            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            var c_socket = socketio_client.connect(config.socketinfo.hostport);
             c_socket.on('connect', function () {
                 c_socket.emit('persistent_load', json);
             });

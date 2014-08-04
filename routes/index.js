@@ -4,6 +4,9 @@ var os = require('os')
 var dao = require('../dao')
 var buildline = require('../service/buildline')
 var moment = require('moment')
+var config = require('../config')
+
+var socket_url = config.socketinfo.hostport
 
 module.exports = function (app) {
     app.get('/', function(req, res){
@@ -41,7 +44,7 @@ module.exports = function (app) {
     app.get('/q_cpu', function(req, res){
         var dse = date_start_date_end()
         buildline.build_cpu_line(dse[0],dse[1],function(result){
-            res.render('q_cpu', { result: JSON.stringify(result)});
+            res.render('q_cpu', { result: JSON.stringify(result),socket_url:socket_url});
         })
 
     });
@@ -56,7 +59,7 @@ module.exports = function (app) {
     app.get('/q_mem', function(req, res){
         var dse = date_start_date_end()
         buildline.build_mem_line(dse[0],dse[1],function(result){
-            res.render('q_mem', { result: JSON.stringify(result)});
+            res.render('q_mem', { result: JSON.stringify(result),socket_url:socket_url});
         })
 
     });
@@ -72,7 +75,7 @@ module.exports = function (app) {
     app.get('/q_load', function(req, res){
         var dse = date_start_date_end()
         buildline.build_load_line(dse[0],dse[1],function(result){
-            res.render('q_load', { result: JSON.stringify(result)});
+            res.render('q_load', { result: JSON.stringify(result),socket_url:socket_url});
         })
 
     });

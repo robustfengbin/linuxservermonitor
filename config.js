@@ -23,11 +23,11 @@ exports.mongodb={
     port:27017,
     db_name: 'capmonitor',
     session_secret: 'node_capmonitor',
-    db: 'mongodb://112.124.61.22/capmonitor'
+    db: 'mongodb://192.168.1.95/capmonitor'
 };
 //socket.ioconf
 exports.socketinfo={
-    hostport:"http://192.168.0.219:3000"
+    hostport:"http://112.124.61.22:3000"
 }
 
 
