@@ -14,6 +14,8 @@ var MonitorEvent = require('./service/monitorevent')
 var socket_io = require('socket.io')
 var buildline = require('./service/buildline')
 var moment = require('moment')
+var socketio_client = require('socket.io-client')
+
 
 
 var app = express();
@@ -76,14 +78,26 @@ io.sockets.on('connection', function (socket) {
             var ca = data.create_at
             var labeltext = moment(ca).format("HH:mm")
             var json = {array:[data.total,data.total-data.free],label:labeltext}
-            monitorEvent.persistent_mem("persistent_mem",json)
+       //     monitorEvent.persistent_mem("persistent_mem",json)
+
+
+            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            c_socket.on('connect', function () {
+                c_socket.emit('persistent_mem', json);
+            });
+
+
             })
         console.info("linux monitor loadavg_info_save:")
         linux.loadavg_info_save(function(data){
             var ca = data.create_at
             var labeltext = moment(ca).format("HH:mm")
             var json = {array:[data.one,data.five,data.ten],label:labeltext}
-            monitorEvent.persistent_load("persistent_load",json)
+        //    monitorEvent.persistent_load("persistent_load",json)
+            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            c_socket.on('connect', function () {
+                c_socket.emit('persistent_load', json);
+            });
         })
 
     },1*60*1000)
