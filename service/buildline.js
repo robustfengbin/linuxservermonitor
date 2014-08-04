@@ -171,6 +171,10 @@ exports.build_cpu_line = function(date_start,date_end,callback){
                 idel
             ]
         }
+        console.info("sys:",sys.data)
+        console.info("user:",user.data)
+        console.info("idel:",idel.data)
+
         callback(lineChartData)
     })
 }
