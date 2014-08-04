@@ -29,27 +29,11 @@ module.exports = function (app) {
     app.get('/cpu', function(req, res){
         var dse = date_start_date_end()
 
-        var cpus = os.cpus()
-
-        for(var i=0;i<cpus.length;i++){
-            console.info("cpu["+i+"]---------")
-            var c = cpus[i]
-            var name = c.model
-            console.info("cpu name:",name)
-            var speed = c.speed
-            console.info("cpu speed:",speed)
-            var times = c.times
-            var user = times.user
-            var sys = times.sys
-            var idle = times.idle
-
-            console.info("cpu usage user:",user,"sys:",sys,"idle:",idle)
-        }
-
-        console.info("cpus:",cpus)
+        buildline.build_cpu_line(dse[0],dse[1],function(result){
+            res.render('cpu', { result: JSON.stringify(result)});
+        })
 
 
-             res.render('cpu', { result: JSON.stringify(result)});
 
 
     });

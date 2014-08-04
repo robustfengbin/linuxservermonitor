@@ -65,13 +65,26 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('mem_info', data)
 
     })
+
+    socket.on('persistent_cpu',function(data){
+        console.info("have notify_per_cpu",data)
+        //广播mem信息已更新
+        socket.broadcast.emit('cpu_info', data)
+
+    })
 })
 
 //if(os.platform=="linux"){
     setInterval(function(){
         console.info("linux monitor cpu_info_save:")
         linux.cpu_info_save(function(data){
-
+            var ca = data.create_at
+            var labeltext = moment(ca).format("HH:mm")
+            var json = {array:[data.us,data.sys,data.idle],label:labeltext}
+            var c_socket = socketio_client.connect("http://127.0.0.1:3000");
+            c_socket.on('connect', function () {
+                c_socket.emit('persistent_cpu', json);
+            });
         })
         console.info("linux monitor mem_info_save:")
         linux.mem_info_save(function(data){
@@ -100,6 +113,6 @@ io.sockets.on('connection', function (socket) {
             });
         })
 
-    },1*60*1000)
+    },10*60*1000)
 //}
 

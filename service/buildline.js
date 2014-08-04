@@ -152,72 +152,26 @@ exports.build_cpu_line = function(date_start,date_end,callback){
             data : []
         }
 
-        var cpu_nums = 0 ;
-
-        for(var i=0;i<datas.length;i++) {
-            var model = datas[i]
-            cpu_nums = model.model.length
-        }
-        var datasets =[]
-        for(var i = 0;i<cpu_nums;i++){
-           var data_label = {
-                id:i,
-                label: "My  dataset["+i+"]",
-                fillColor : "rgba(151,187,205,0.2)",
-                strokeColor : "rgba(151,187,205,1)",
-                pointColor : "rgba(151,187,205,1)",
-                pointStrokeColor : "#ccc",
-                pointHighlightFill : "#ccc",
-                pointHighlightStroke : "rgba(151,187,205,1)",
-                data : []
-            }
-            datasets.push(data_label)
-
-        }
-
-
-
         for(var i=0;i<datas.length;i++){
-            var model = datas[i]
-            cpu_nums = model.model.length
-            var ca = model.create_at
+            var ca = datas[i].create_at
             var labeltext = moment(ca).format("HH:mm")
             labels.push(labeltext)
-
-            for(var m=0;m<model.model.length;m++){
-               var model_detail = model.model[m]
-
-
-            }
-
-            var total_data = model.total
-            total.data.push(total_data)
-            var free_data = model.free
-            used.data.push(total_data-free_data)
-
+            var sys_data = datas[i].sys
+            sys.data.push(sys_data)
+            var user_data = datas[i].user
+            user.data.push(user_data)
+            var idel_data = datas[i].idel
+            idel.data.push(idel_data)
         }
-
         var lineChartData = {
             labels : labels,
             datasets : [
                 sys,
-                idle,
-                user
+                user,
+                idel
             ]
         }
-
-        for(var n =0 ;n<cpu_nums;n++){
-            lineChartData.datasets.push()
-        }
-
-
-
-
-
-
-
         callback(lineChartData)
-
     })
 }
 
