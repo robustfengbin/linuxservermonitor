@@ -34,3 +34,9 @@ exports.findAll = function(callback){
     });
 }
 
+exports.del_all = function(gte,lt,callback){
+    Cpu.remove({'create_at':{'$gte':new Date(gte),'$lt':new Date(lt)}}, function (err, cpus) {
+        callback(null,cpus)
+    });
+}
+
