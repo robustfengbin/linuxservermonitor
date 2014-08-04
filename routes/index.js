@@ -30,11 +30,16 @@ module.exports = function (app) {
         var dse = date_start_date_end()
 
         buildline.build_cpu_line(dse[0],dse[1],function(result){
+            console.info("cpu info:",result)
             res.render('cpu', { result: JSON.stringify(result)});
         })
+    });
 
-
-
+    app.get('/q_cpu', function(req, res){
+        var dse = date_start_date_end()
+        buildline.build_cpu_line(dse[0],dse[1],function(result){
+            res.render('q_cpu', { result: JSON.stringify(result)});
+        })
 
     });
 
