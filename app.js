@@ -113,6 +113,6 @@ io.sockets.on('connection', function (socket) {
             });
         })
 
-    },10*60*1000)
+    },1*60*1000)
 //}
 
