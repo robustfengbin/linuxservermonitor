@@ -15,7 +15,7 @@ var socket_io = require('socket.io')
 var buildline = require('./service/buildline')
 var moment = require('moment')
 var socketio_client = require('socket.io-client')
-var config = require('config')
+var config = require('./config')
 
 
 
