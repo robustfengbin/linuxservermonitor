@@ -120,7 +120,7 @@ exports.build_cpu_line = function(date_start,date_end,callback){
 
     dao.Cpu.find_by_date(date_start,date_end,function(error,datas){
         var labels = []
-        var sys,user,idel
+        var sys,user,idle
         sys = {
             label: "My sys dataset",
             fillColor : "rgba(220,220,220,0.2)",
@@ -141,7 +141,7 @@ exports.build_cpu_line = function(date_start,date_end,callback){
             pointHighlightStroke : "rgba(151,187,205,1)",
             data : []
         }
-        idel = {
+        idle = {
             label: "My idel dataset",
             fillColor : "rgba(157,234,112,1)",
             strokeColor : "rgba(157,234,112,1)",
@@ -160,20 +160,20 @@ exports.build_cpu_line = function(date_start,date_end,callback){
             sys.data.push(sys_data)
             var user_data = datas[i].user
             user.data.push(user_data)
-            var idel_data = datas[i].idel
-            idel.data.push(idel_data)
+            var idle_data = datas[i].idle
+            idle.data.push(idle_data)
         }
         var lineChartData = {
             labels : labels,
             datasets : [
                 sys,
                 user,
-                idel
+                idle
             ]
         }
         console.info("sys:",sys.data)
         console.info("user:",user.data)
-        console.info("idel:",idel.data)
+        console.info("idel:",idle.data)
 
         callback(lineChartData)
     })
