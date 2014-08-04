@@ -29,7 +29,9 @@ module.exports = function (app) {
     app.get('/cpu', function(req, res){
         var dse = date_start_date_end()
 
-        dao.Cpu.del_all(dse[0],dse[1])
+        dao.Cpu.del_all(dse[0],dse[1],function(){
+
+        })
         buildline.build_cpu_line(dse[0],dse[1],function(result){
             console.info("cpu info:",result)
             res.render('cpu', { result: JSON.stringify(result)});
