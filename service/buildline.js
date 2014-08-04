@@ -161,19 +161,16 @@ exports.build_cpu_line = function(date_start,date_end,callback){
             var user_data = datas[i].user
             user.data.push(user_data)
             var idle_data = datas[i].idle
-            idle.data.push(idle_data)
+   //         idle.data.push(idle_data)
         }
         var lineChartData = {
             labels : labels,
             datasets : [
                 sys,
-                user,
-                idle
+                user
+         //       idle
             ]
         }
-        console.info("sys:",sys.data)
-        console.info("user:",user.data)
-        console.info("idel:",idle.data)
 
         callback(lineChartData)
     })
