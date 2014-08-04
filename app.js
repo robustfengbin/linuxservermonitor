@@ -52,14 +52,14 @@ var io = socket_io.listen(server);
 
 io.sockets.on('connection', function (socket) {
 
-    monitorEvent.on('notify_per_load',function(data){
+    socket.on('notify_per_load',function(data){
         console.info("have notify_per_load",data)
        //广播loadavg信息已更新
         socket.broadcast.emit('load_info', data)
 
     })
 
-    monitorEvent.on('notify_per_mem',function(data){
+    socket.on('notify_per_mem',function(data){
         console.info("have notify_per_mem",data)
         //广播mem信息已更新
         socket.broadcast.emit('mem_info', data)
