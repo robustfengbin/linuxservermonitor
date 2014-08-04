@@ -32,6 +32,7 @@ var os = require('os')
 exports.cpu_info_save = function(callback){
 
     var top_c = "top -b -n 1 |grep   Cpu |awk '{print $2,$3,$5}'|sed  's/%[usi][syd],//g'"
+    var   cpus = os.cpus()
     var  child = exec(top_c,
         function (error, stdout, stderr) {
             if (error !== null) {
